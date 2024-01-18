@@ -15,15 +15,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_belongin")
-public class Belongin {
+@Table(name = "tb_belonging")
+public class Belonging {
 	
 	@EmbeddedId
 	private BelongingPK id = new BelongingPK();
 	
 	private Integer position;
 	
-	public Belongin(Game game, GameList list, Integer position) {
+	public Belonging(Game game, GameList list, Integer position) {
 		this.id.setGame(game);
 		this.id.setList(list);
 		this.position = position;
