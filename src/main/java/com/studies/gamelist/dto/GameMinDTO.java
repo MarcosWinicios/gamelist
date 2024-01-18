@@ -1,6 +1,7 @@
 package com.studies.gamelist.dto;
 
 import com.studies.gamelist.entities.Game;
+import com.studies.gamelist.projections.GameMinProjection;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,14 @@ public class GameMinDTO {
 		this.year = entity.getYear();
 		this.imgUrl = entity.getImgUrl();
 		this.shortDescription = entity.getShortDescription();
+	}
+	
+	public GameMinDTO(GameMinProjection projection) {
+		this.id = projection.getId();
+		this.title = projection.getTitle();
+		this.year = projection.getGameYear();
+		this.imgUrl = projection.getImgUrl();
+		this.shortDescription = projection.getShortDescription();
 	}
 	
 }

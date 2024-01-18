@@ -7,38 +7,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.studies.gamelist.dto.GameDTO;
+import com.studies.gamelist.dto.GameListDTO;
 import com.studies.gamelist.dto.GameMinDTO;
-import com.studies.gamelist.entities.Game;
-import com.studies.gamelist.projections.GameMinProjection;
+import com.studies.gamelist.services.GameListService;
 import com.studies.gamelist.services.GameService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/game")
-public class GameController {
-
+@RequestMapping("/lists")
+public class GameListController {
+	
+	@Autowired
+	private GameListService gameListService;
+	
 	@Autowired
 	private GameService gameService;
-
+	
 	@GetMapping
-	public ResponseEntity<List<GameMinDTO>> findAll() {
-		var result = gameService.findAll();
-
+	public ResponseEntity<List<GameListDTO>> findAll(){
+		var result = gameListService.findAll();
+		
 		return ResponseEntity.ok(result);
 	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<GameDTO> findById(@PathVariable Long id) {
-
-		GameDTO result = gameService.findById(id);
-		if (result == null) {
-			return null;
-		}
+	
+	@GetMapping("/{listId}/games")
+	public ResponseEntity<List<GameMinDTO>> getMethodName(@PathVariable Long listId) {
+		var result = gameService.findByList(listId);
 		return ResponseEntity.ok(result);
 	}
-
 }
