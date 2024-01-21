@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "30debd54-a033-4799-a6b0-d4e32d83d6c2",
+		"name": "game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15910918"
+	},
+	"item": [
+		{
+			"name": "games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/game",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "game id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/game/2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"game",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "game by list id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/lists/2/games",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"lists",
+						"2",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List replacement",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sourceIndex\": 3,\n    \"destinationIndex\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/lists/2/replacement",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"lists",
+						"2",
+						"replacement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "game lists",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{java.local.host}}/lists",
+					"host": [
+						"{{java.local.host}}"
+					],
+					"path": [
+						"lists"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
