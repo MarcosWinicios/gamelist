@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.studies</groupId>
 	<artifactId>gamelist</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>gamelist</name>
 	<description>A list of games developed with Java Spring</description>
 	<properties>
