@@ -1,6 +1,6 @@
-package com.studies.gamelist.dto;
+package com.studies.gamelist.api.dto;
 
-import com.studies.gamelist.entities.Game;
+import com.studies.gamelist.domain.entities.Game;
 import com.studies.gamelist.projections.GameMinProjection;
 
 import lombok.AllArgsConstructor;

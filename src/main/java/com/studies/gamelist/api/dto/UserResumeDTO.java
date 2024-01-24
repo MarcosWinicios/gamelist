@@ -1,6 +1,6 @@
-package com.studies.gamelist.dto;
+package com.studies.gamelist.api.dto;
 
-import com.studies.gamelist.entities.User;
+import com.studies.gamelist.domain.entities.User;
 
 import lombok.Getter;
 import lombok.Setter;

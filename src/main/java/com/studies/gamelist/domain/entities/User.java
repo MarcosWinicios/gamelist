@@ -1,8 +1,8 @@
-package com.studies.gamelist.entities;
+package com.studies.gamelist.domain.entities;
 
 import java.io.Serializable;
 
-import com.studies.gamelist.dto.input.UserInputDTO;
+import com.studies.gamelist.api.dto.input.UserInputDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

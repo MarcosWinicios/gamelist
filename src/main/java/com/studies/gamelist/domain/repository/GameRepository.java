@@ -1,11 +1,11 @@
-package com.studies.gamelist.repository;
+package com.studies.gamelist.domain.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.studies.gamelist.entities.Game;
+import com.studies.gamelist.domain.entities.Game;
 import com.studies.gamelist.projections.GameMinProjection;
 
 public interface GameRepository extends JpaRepository<Game, Long> {

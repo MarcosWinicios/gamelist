@@ -1,4 +1,4 @@
-package com.studies.gamelist.services;
+package com.studies.gamelist.domain.service;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.studies.gamelist.dto.GameListDTO;
+import com.studies.gamelist.api.dto.GameListDTO;
+import com.studies.gamelist.domain.repository.GameListRepository;
+import com.studies.gamelist.domain.repository.GameRepository;
 import com.studies.gamelist.projections.GameMinProjection;
-import com.studies.gamelist.repository.GameListRepository;
-import com.studies.gamelist.repository.GameRepository;
 
 @Service
 public class GameListService {

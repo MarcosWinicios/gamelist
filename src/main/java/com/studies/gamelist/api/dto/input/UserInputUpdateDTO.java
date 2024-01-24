@@ -1,4 +1,4 @@
-package com.studies.gamelist.dto.input;
+package com.studies.gamelist.api.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

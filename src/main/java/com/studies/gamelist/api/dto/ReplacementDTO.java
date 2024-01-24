@@ -1,4 +1,4 @@
-package com.studies.gamelist.dto;
+package com.studies.gamelist.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

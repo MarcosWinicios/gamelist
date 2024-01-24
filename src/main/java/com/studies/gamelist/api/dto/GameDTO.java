@@ -1,8 +1,8 @@
-package com.studies.gamelist.dto;
+package com.studies.gamelist.api.dto;
 
 import org.springframework.beans.BeanUtils;
 
-import com.studies.gamelist.entities.Game;
+import com.studies.gamelist.domain.entities.Game;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

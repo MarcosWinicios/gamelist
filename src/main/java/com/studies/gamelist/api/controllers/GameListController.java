@@ -1,4 +1,4 @@
-package com.studies.gamelist.controllers;
+package com.studies.gamelist.api.controllers;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.studies.gamelist.dto.GameListDTO;
-import com.studies.gamelist.dto.GameMinDTO;
-import com.studies.gamelist.dto.ReplacementDTO;
-import com.studies.gamelist.services.GameListService;
-import com.studies.gamelist.services.GameService;
+import com.studies.gamelist.api.dto.GameListDTO;
+import com.studies.gamelist.api.dto.GameMinDTO;
+import com.studies.gamelist.api.dto.ReplacementDTO;
+import com.studies.gamelist.domain.service.GameListService;
+import com.studies.gamelist.domain.service.GameService;
 
 @RestController
 @RequestMapping("/lists")

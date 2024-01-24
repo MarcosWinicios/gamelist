@@ -1,4 +1,4 @@
-package com.studies.gamelist.controllers;
+package com.studies.gamelist.api.controllers;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.studies.gamelist.dto.UserResumeDTO;
-import com.studies.gamelist.dto.input.UserInputDTO;
-import com.studies.gamelist.dto.input.UserInputUpdateDTO;
-import com.studies.gamelist.services.UserService;
+import com.studies.gamelist.api.dto.UserResumeDTO;
+import com.studies.gamelist.api.dto.input.UserInputDTO;
+import com.studies.gamelist.api.dto.input.UserInputUpdateDTO;
+import com.studies.gamelist.domain.service.UserService;
 
 @RestController
 @RequestMapping("user")

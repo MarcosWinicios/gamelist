@@ -1,4 +1,4 @@
-package com.studies.gamelist.entities;
+package com.studies.gamelist.domain.entities;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
