@@ -1,6 +1,7 @@
 package com.studies.gamelist.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.studies.gamelist.dto.UserResumeDTO;
 import com.studies.gamelist.dto.input.UserInputDTO;
+import com.studies.gamelist.dto.input.UserInputUpdateDTO;
 import com.studies.gamelist.entities.User;
 import com.studies.gamelist.repository.UserRepository;
 
@@ -18,15 +20,63 @@ public class UserService {
 	private UserRepository repository;
 
 	@Transactional
+	public List<UserResumeDTO> findAll() {
+
+		return repository.findAll().stream().map(user -> new UserResumeDTO(user)).toList();
+	}
+
+	@Transactional
+	public UserResumeDTO findById(String userId) {
+
+		Optional<User> result = repository.findById(userId);
+
+		if (result.isPresent()) {
+			return new UserResumeDTO(result.get());
+		}
+
+		return null;
+	}
+
+	@Transactional
 	public UserResumeDTO save(UserInputDTO userInput) {
 		User newUser = new User(userInput);
 		User savedUser = repository.save(newUser);
 		return new UserResumeDTO(savedUser);
 	}
 
-	public List<UserResumeDTO> findAll() {
+	@Transactional
+	public UserResumeDTO update(String userId, UserInputUpdateDTO userInput) throws Exception {
+		var user = new User();
+		Optional<User> result = repository.findByEmail(userInput.getEmail());
+		
+		if (result.isPresent()) {
+			user.setId(userId);
+			user.setName(userInput.getName());
+			user.setEmail(userInput.getEmail());
 
-		return repository.findAll().stream().map(user -> new UserResumeDTO(user)).toList();
+			boolean isEquals = result.get().equals(user);
+
+			if (!isEquals) {
+				throw new Exception("Já existe um usuário com esse email.");
+			}
+
+			user = repository.save(user);
+
+			return new UserResumeDTO(user);
+		}
+
+		throw new Exception("Usuário não encontrado");
+
+	}
+
+	public boolean verifyId(String userId) {
+		Optional<User> result = repository.findById(userId);
+
+		if (result.isPresent()) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
