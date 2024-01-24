@@ -48,8 +48,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserResumeDTO> update(@PathVariable String userId, @RequestBody UserInputUpdateDTO user)
-			throws Exception {
+	public ResponseEntity<UserResumeDTO> update(@PathVariable String userId, @RequestBody UserInputUpdateDTO user) {
 
 		if (!userService.verifyId(userId)) {
 			return ResponseEntity.notFound().build();

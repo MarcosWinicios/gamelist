@@ -11,6 +11,7 @@ import com.studies.gamelist.api.dto.UserResumeDTO;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
 import com.studies.gamelist.api.dto.input.UserInputUpdateDTO;
 import com.studies.gamelist.domain.entities.User;
+import com.studies.gamelist.domain.exception.BusinessException;
 import com.studies.gamelist.domain.repository.UserRepository;
 
 @Service
@@ -45,10 +46,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserResumeDTO update(String userId, UserInputUpdateDTO userInput) throws Exception {
+	public UserResumeDTO update(String userId, UserInputUpdateDTO userInput) {
 		var user = new User();
 		Optional<User> result = repository.findByEmail(userInput.getEmail());
-		
+
 		if (result.isPresent()) {
 			user.setId(userId);
 			user.setName(userInput.getName());
@@ -57,7 +58,7 @@ public class UserService {
 			boolean isEquals = result.get().equals(user);
 
 			if (!isEquals) {
-				throw new Exception("Já existe um usuário com esse email.");
+				throw new BusinessException("Já existe um usuário com esse email.");
 			}
 
 			user = repository.save(user);
@@ -65,7 +66,7 @@ public class UserService {
 			return new UserResumeDTO(user);
 		}
 
-		throw new Exception("Usuário não encontrado");
+		throw new BusinessException("Usuário não encontrado");
 
 	}
 

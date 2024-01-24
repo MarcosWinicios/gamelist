@@ -1,7 +1,5 @@
 package com.studies.gamelist.domain.entities;
 
-import java.io.Serializable;
-
 import com.studies.gamelist.api.dto.input.UserInputDTO;
 
 import jakarta.persistence.Entity;
