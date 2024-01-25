@@ -93,5 +93,11 @@ public class UserService {
 		List<GameList> result = listRepository.findListByUserId(userId);
 		return result.stream().map(list -> new GameListDTO(list)).toList();
 	}
+	
+	@Transactional
+	public void delete(String userId) {
+		repository.deleteById(userId);
+		
+	}
 
 }

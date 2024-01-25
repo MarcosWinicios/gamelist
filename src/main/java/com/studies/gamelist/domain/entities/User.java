@@ -2,6 +2,9 @@ package com.studies.gamelist.domain.entities;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
 
@@ -42,11 +45,11 @@ public class User {
 	@Size(max = 255)
 	private String email;
 	
-	@NotBlank
 	private String password;
 	
 	@JsonIgnore
 	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "user")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<GameList> userGameList;
 	
 	public User(UserInputDTO userInputDTO) {

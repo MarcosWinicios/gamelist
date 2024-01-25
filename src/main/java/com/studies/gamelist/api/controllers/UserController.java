@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	GameListService gameListService;
 
@@ -43,7 +44,7 @@ public class UserController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserResumeDTO save(@Valid @RequestBody UserInputDTO userInput) {		
+	public UserResumeDTO save(@Valid @RequestBody UserInputDTO userInput) {
 		var newUser = this.userService.save(userInput);
 		return newUser;
 	}
@@ -55,7 +56,8 @@ public class UserController {
 	}
 
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserResumeDTO> update(@Valid @PathVariable String userId, @RequestBody UserInputUpdateDTO user) {
+	public ResponseEntity<UserResumeDTO> update(@Valid @PathVariable String userId,
+			@RequestBody UserInputUpdateDTO user) {
 
 		if (!userService.verifyId(userId)) {
 			return ResponseEntity.notFound().build();
@@ -64,22 +66,30 @@ public class UserController {
 		return ResponseEntity.ok(userService.update(userId, user));
 
 	}
-	
+
 	@GetMapping("/{userId}/gamelist")
-	public ResponseEntity<List<GameListDTO>> findListByUser(@PathVariable String userId){
-		
+	public ResponseEntity<List<GameListDTO>> findListByUser(@PathVariable String userId) {
+
 		System.out.println("Entrou");
 		List<GameListDTO> result = userService.findListByUserId(userId);
-		
+
 		return ResponseEntity.ok(result);
 	}
-	
+
 	@PostMapping("/{userId}/list")
 	@ResponseStatus(HttpStatus.CREATED)
-	public GameListDTO save(@PathVariable String userId, @RequestBody GameListInputDTO gameListInput){
+	public GameListDTO save(@PathVariable String userId, @RequestBody GameListInputDTO gameListInput) {
 		GameListDTO result = gameListService.save(userId, gameListInput);
-		
+
 		return result;
+	}
+
+	@DeleteMapping("/{userId}")
+	public ResponseEntity<Void> delete(@PathVariable String userId) {
+		userService.delete(userId);
+
+		return ResponseEntity.noContent().build();
+
 	}
 
 }
