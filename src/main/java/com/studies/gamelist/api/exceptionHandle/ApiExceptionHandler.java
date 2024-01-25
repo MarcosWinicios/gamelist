@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.studies.gamelist.domain.exception.BusinessException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	
@@ -62,6 +64,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		problem.setTitle(ex.getMessage());
 		
 		
+		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+	}
+	
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<Object> handleEntidadeNaoEncontradaException(EntityNotFoundException ex, WebRequest request) {
+		var status =  HttpStatus.NOT_FOUND;
+		var problem = new Problem();
+		
+		problem.setStatus(status.value());
+		problem.setDateHour(OffsetDateTime.now());
+		problem.setTitle(ex.getMessage());
+	
 		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
 	}
 

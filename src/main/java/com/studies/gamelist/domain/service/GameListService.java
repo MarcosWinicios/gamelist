@@ -22,6 +22,10 @@ public class GameListService {
 	
 	@Autowired
 	private GameRepository gameRepository;
+	
+	
+	@Autowired
+	private UserService userService;
 
 	@Transactional(readOnly = true)
 	public List<GameListDTO> findAll() {
@@ -45,6 +49,9 @@ public class GameListService {
 	
 	@Transactional
 	public GameListDTO save(String userId, GameListInputDTO gameListInput) {
+		
+		
+		userService.verifyId(userId);
 		
 		GameList list =  new GameList();
 		list.setUser(new User());

@@ -17,6 +17,8 @@ import com.studies.gamelist.domain.exception.BusinessException;
 import com.studies.gamelist.domain.repository.GameListRepository;
 import com.studies.gamelist.domain.repository.UserRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 
@@ -53,6 +55,8 @@ public class UserService {
 
 	@Transactional
 	public UserResumeDTO update(String userId, UserInputUpdateDTO userInput) {
+		verifyId(userId);
+		
 		var user = new User();
 		Optional<User> result = repository.findByEmail(userInput.getEmail());
 
@@ -72,19 +76,18 @@ public class UserService {
 			return new UserResumeDTO(user);
 		}
 
-		throw new BusinessException("Usuário não encontrado");
+		throw new EntityNotFoundException("Usuário inexistente");
 
 	}
 	
 	@Transactional
 	public boolean verifyId(String userId) {
-		Optional<User> result = repository.findById(userId);
-
-		if (result.isPresent()) {
-			return true;
+		boolean result = repository.existsById(userId);
+		if(!result) {
+			throw new EntityNotFoundException("Usuário inexistente");
 		}
-
-		return false;
+		
+		return result;
 	}
 	
 	@Transactional
@@ -96,6 +99,7 @@ public class UserService {
 	
 	@Transactional
 	public void delete(String userId) {
+		this.verifyId(userId);
 		repository.deleteById(userId);
 		
 	}

@@ -51,6 +51,7 @@ public class UserController {
 
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserResumeDTO> findById(@PathVariable String userId) {
+		
 		var result = userService.findById(userId);
 		return ResponseEntity.ok(result);
 	}
@@ -58,19 +59,13 @@ public class UserController {
 	@PutMapping("/{userId}")
 	public ResponseEntity<UserResumeDTO> update(@Valid @PathVariable String userId,
 			@RequestBody UserInputUpdateDTO user) {
-
-		if (!userService.verifyId(userId)) {
-			return ResponseEntity.notFound().build();
-		}
-
+		
 		return ResponseEntity.ok(userService.update(userId, user));
-
 	}
 
 	@GetMapping("/{userId}/gamelist")
 	public ResponseEntity<List<GameListDTO>> findListByUser(@PathVariable String userId) {
 
-		System.out.println("Entrou");
 		List<GameListDTO> result = userService.findListByUserId(userId);
 
 		return ResponseEntity.ok(result);
@@ -79,17 +74,15 @@ public class UserController {
 	@PostMapping("/{userId}/list")
 	@ResponseStatus(HttpStatus.CREATED)
 	public GameListDTO save(@PathVariable String userId, @RequestBody GameListInputDTO gameListInput) {
-		GameListDTO result = gameListService.save(userId, gameListInput);
 
-		return result;
+		return gameListService.save(userId, gameListInput);
 	}
 
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<Void> delete(@PathVariable String userId) {
+		
 		userService.delete(userId);
-
 		return ResponseEntity.noContent().build();
-
 	}
 
 }
