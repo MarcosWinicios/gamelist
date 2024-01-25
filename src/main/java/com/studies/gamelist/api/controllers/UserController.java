@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.studies.gamelist.api.dto.UserResumeDTO;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
 import com.studies.gamelist.api.dto.input.UserInputUpdateDTO;
+import com.studies.gamelist.domain.entities.User;
 import com.studies.gamelist.domain.service.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("user")
@@ -35,7 +38,14 @@ public class UserController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserResumeDTO save(@RequestBody UserInputDTO userInput) {
+	public UserResumeDTO save(@Valid @RequestBody UserInputDTO userInput) {
+		
+//		var user =  new UserInputDTO();
+//		
+//		user.setEmail(userInput.getEmail());
+//		user.setName(userInput.getName());
+//		user.setPassword(userInput.getPassword());
+		
 		var newUser = this.userService.save(userInput);
 
 		return newUser;
@@ -48,7 +58,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserResumeDTO> update(@PathVariable String userId, @RequestBody UserInputUpdateDTO user) {
+	public ResponseEntity<UserResumeDTO> update(@Valid @PathVariable String userId, @RequestBody UserInputUpdateDTO user) {
 
 		if (!userService.verifyId(userId)) {
 			return ResponseEntity.notFound().build();
