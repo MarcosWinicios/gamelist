@@ -1,11 +1,16 @@
 package com.studies.gamelist.domain.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -40,16 +45,20 @@ public class User {
 	@NotBlank
 	private String password;
 	
+	@JsonIgnore
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "user")
+	private List<GameList> userGameList;
+	
 	public User(UserInputDTO userInputDTO) {
 		this.name =  userInputDTO.getName();
 		this.email = userInputDTO.getEmail();
 		this.password = userInputDTO.getPassword();
 	}
-	
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", userGameList="
+				+ userGameList + "]";
 	}
-	
 	
 }

@@ -11,7 +11,6 @@ import com.studies.gamelist.api.dto.GameDTO;
 import com.studies.gamelist.api.dto.GameMinDTO;
 import com.studies.gamelist.domain.entities.Game;
 import com.studies.gamelist.domain.repository.GameRepository;
-import com.studies.gamelist.projections.GameMinProjection;
 
 @Service
 public class GameService {

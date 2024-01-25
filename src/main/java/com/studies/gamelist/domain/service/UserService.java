@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.studies.gamelist.api.dto.GameListDTO;
 import com.studies.gamelist.api.dto.UserResumeDTO;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
 import com.studies.gamelist.api.dto.input.UserInputUpdateDTO;
+import com.studies.gamelist.domain.entities.GameList;
 import com.studies.gamelist.domain.entities.User;
 import com.studies.gamelist.domain.exception.BusinessException;
+import com.studies.gamelist.domain.repository.GameListRepository;
 import com.studies.gamelist.domain.repository.UserRepository;
 
 @Service
@@ -19,6 +22,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private GameListRepository listRepository;
 
 	@Transactional
 	public List<UserResumeDTO> findAll() {
@@ -69,7 +75,8 @@ public class UserService {
 		throw new BusinessException("Usuário não encontrado");
 
 	}
-
+	
+	@Transactional
 	public boolean verifyId(String userId) {
 		Optional<User> result = repository.findById(userId);
 
@@ -78,6 +85,13 @@ public class UserService {
 		}
 
 		return false;
+	}
+	
+	@Transactional
+	public List<GameListDTO> findListByUserId(String userId) {
+		
+		List<GameList> result = listRepository.findListByUserId(userId);
+		return result.stream().map(list -> new GameListDTO(list)).toList();
 	}
 
 }

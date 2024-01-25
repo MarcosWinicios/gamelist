@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.studies.gamelist.api.dto.GameListDTO;
+import com.studies.gamelist.api.dto.input.GameListInputDTO;
+import com.studies.gamelist.domain.entities.GameList;
+import com.studies.gamelist.domain.entities.User;
 import com.studies.gamelist.domain.repository.GameListRepository;
 import com.studies.gamelist.domain.repository.GameRepository;
 import com.studies.gamelist.projections.GameMinProjection;
@@ -38,6 +41,20 @@ public class GameListService {
 		for(int i = min; i <= max; i++) {
 			gameListRepository.updateBelongingPosition(listId, list.get(i).getId(), i);
 		}
+	}
+	
+	@Transactional
+	public GameListDTO save(String userId, GameListInputDTO gameListInput) {
+		
+		GameList list =  new GameList();
+		list.setUser(new User());
+		
+		list.getUser().setId(userId);
+		list.setName(gameListInput.getName());
+		
+		list = gameListRepository.save(list);
+		
+		return new GameListDTO(list);
 	}
 
 }

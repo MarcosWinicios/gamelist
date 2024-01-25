@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.studies.gamelist.api.dto.GameListDTO;
 import com.studies.gamelist.api.dto.UserResumeDTO;
+import com.studies.gamelist.api.dto.input.GameListInputDTO;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
 import com.studies.gamelist.api.dto.input.UserInputUpdateDTO;
-import com.studies.gamelist.domain.entities.User;
+import com.studies.gamelist.domain.service.GameListService;
 import com.studies.gamelist.domain.service.UserService;
 
 import jakarta.validation.Valid;
@@ -28,6 +30,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	GameListService gameListService;
 
 	@GetMapping
 	private ResponseEntity<List<UserResumeDTO>> findAll() {
@@ -38,16 +43,8 @@ public class UserController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserResumeDTO save(@Valid @RequestBody UserInputDTO userInput) {
-		
-//		var user =  new UserInputDTO();
-//		
-//		user.setEmail(userInput.getEmail());
-//		user.setName(userInput.getName());
-//		user.setPassword(userInput.getPassword());
-		
+	public UserResumeDTO save(@Valid @RequestBody UserInputDTO userInput) {		
 		var newUser = this.userService.save(userInput);
-
 		return newUser;
 	}
 
@@ -66,6 +63,23 @@ public class UserController {
 
 		return ResponseEntity.ok(userService.update(userId, user));
 
+	}
+	
+	@GetMapping("/{userId}/gamelist")
+	public ResponseEntity<List<GameListDTO>> findListByUser(@PathVariable String userId){
+		
+		System.out.println("Entrou");
+		List<GameListDTO> result = userService.findListByUserId(userId);
+		
+		return ResponseEntity.ok(result);
+	}
+	
+	@PostMapping("/{userId}/list")
+	@ResponseStatus(HttpStatus.CREATED)
+	public GameListDTO save(@PathVariable String userId, @RequestBody GameListInputDTO gameListInput){
+		GameListDTO result = gameListService.save(userId, gameListInput);
+		
+		return result;
 	}
 
 }
