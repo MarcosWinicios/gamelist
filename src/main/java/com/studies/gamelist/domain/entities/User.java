@@ -7,9 +7,12 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
+import com.studies.gamelist.domain.enums.UserRole;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,6 +50,9 @@ public class User {
 	
 	private String password;
 	
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
+	
 	@JsonIgnore
 	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "user")
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -56,12 +62,24 @@ public class User {
 		this.name =  userInputDTO.getName();
 		this.email = userInputDTO.getEmail();
 		this.password = userInputDTO.getPassword();
+		this.role = userInputDTO.getRole();
 	}
-
+	
+	
+	public User(@NotBlank @Size(max = 70) String name, @NotBlank @Email @Size(max = 255) String email, String password,
+			UserRole role) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", userGameList="
 				+ userGameList + "]";
 	}
+
 	
 }

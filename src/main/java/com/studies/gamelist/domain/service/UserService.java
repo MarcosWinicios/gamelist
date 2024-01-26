@@ -13,6 +13,7 @@ import com.studies.gamelist.api.dto.input.UserInputDTO;
 import com.studies.gamelist.api.dto.input.UserInputUpdateDTO;
 import com.studies.gamelist.domain.entities.GameList;
 import com.studies.gamelist.domain.entities.User;
+import com.studies.gamelist.domain.enums.UserRole;
 import com.studies.gamelist.domain.exception.BusinessException;
 import com.studies.gamelist.domain.repository.GameListRepository;
 import com.studies.gamelist.domain.repository.UserRepository;
@@ -47,8 +48,11 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserResumeDTO save(UserInputDTO userInput) {
+	public UserResumeDTO save(UserInputDTO userInput) {		
 		User newUser = new User(userInput);
+		
+		System.out.println("ROLE: " + newUser.getRole());
+		
 		User savedUser = repository.save(newUser);
 		return new UserResumeDTO(savedUser);
 	}
