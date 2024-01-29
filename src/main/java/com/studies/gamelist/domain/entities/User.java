@@ -1,9 +1,13 @@
 package com.studies.gamelist.domain.entities;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
@@ -32,40 +36,39 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User {
-	
-	
+public class User{
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	
+
 	@NotBlank
 	@Size(max = 70)
 	private String name;
-	
+
 	@NotBlank
 	@Email
 	@Size(max = 255)
 	private String email;
-	
+
 	private String password;
-	
+
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
-	
+
 	@JsonIgnore
-	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy = "user")
+	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "user")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<GameList> userGameList;
-	
+
 	public User(UserInputDTO userInputDTO) {
-		this.name =  userInputDTO.getName();
+		this.name = userInputDTO.getName();
 		this.email = userInputDTO.getEmail();
 		this.password = userInputDTO.getPassword();
 		this.role = userInputDTO.getRole();
 	}
-	
-	
+
 	public User(@NotBlank @Size(max = 70) String name, @NotBlank @Email @Size(max = 255) String email, String password,
 			UserRole role) {
 		this.name = name;
@@ -73,8 +76,7 @@ public class User {
 		this.password = password;
 		this.role = role;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", userGameList="
@@ -82,4 +84,42 @@ public class User {
 	}
 
 	
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+
+		if (this.role.equals(UserRole.ADMIN)) {
+			return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_DEFAULT"));
+		}else {
+			return List.of(new SimpleGrantedAuthority("ROLE_DEFAULT"));
+		}
+	}
+
+//	@Override
+//	public String getUsername() {
+//		
+//		return email;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonExpired() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonLocked() {
+//
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isCredentialsNonExpired() {
+//
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isEnabled() {
+//
+//		return true;
+//	}
+
 }
