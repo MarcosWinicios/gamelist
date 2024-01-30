@@ -21,8 +21,6 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody AuthenticationLoginDTO loginData){
 		
-		System.out.println("Input: " + loginData.getEmail());
-		
 		var response = authService.login(loginData);
 		
 		return ResponseEntity.ok(response);
