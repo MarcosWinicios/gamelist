@@ -1,6 +1,6 @@
 INSERT INTO tb_user (id, name, email, password, role) VALUES ('688afee6-7564-4570-afb3-d2b68e404a1a', 'Marcos Pereira Martins', 'marcos@gmail.com', '12345678', 'DEFAULT');
 INSERT INTO tb_user (id, name, email, password, role) VALUES ('e85b0371-53ba-432e-a73a-f8229e2607ed', 'Maria Silva Santos', 'maria@gmail.com', '12345678', 'DEFAULT');
-INSERT INTO tb_user (id, name, email, password, role) VALUES ('a08l5351-10xs-510y-b03g-h9929e1045vk', 'Carlos Barbosa de Lima', 'maria@gmail.com', '12345678', 'ADMIN');
+INSERT INTO tb_user (id, name, email, password, role) VALUES ('a08l5351-10xs-510y-b03g-h9929e1045vk', 'Carlos Barbosa de Lima', 'carlos@gmail.com', '12345678', 'ADMIN');
 
 INSERT INTO tb_game_list (id_user, name) VALUES ('688afee6-7564-4570-afb3-d2b68e404a1a', 'Aventura e RPG');
 INSERT INTO tb_game_list (id_user, name) VALUES ('e85b0371-53ba-432e-a73a-f8229e2607ed', 'Jogos de plataforma');
