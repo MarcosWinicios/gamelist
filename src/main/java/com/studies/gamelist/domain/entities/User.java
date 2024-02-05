@@ -7,7 +7,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.studies.gamelist.api.dto.input.UserInputDTO;
@@ -17,6 +16,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -58,7 +58,7 @@ public class User{
 	private UserRole role;
 
 	@JsonIgnore
-	@OneToMany(cascade = { CascadeType.MERGE }, mappedBy = "user")
+	@OneToMany(cascade = { CascadeType.MERGE}, mappedBy = "user")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<GameList> userGameList;
 
@@ -79,8 +79,7 @@ public class User{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", userGameList="
-				+ userGameList + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
 	}
 
 	

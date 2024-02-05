@@ -1,20 +1,23 @@
-package com.studies.gamelist.security;
+package com.studies.gamelist.domain.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.studies.gamelist.domain.entities.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@Component
-public class TokenUtil {
+@Service
+public class TokenService {
 
 	private static final String TOKEN_PREFIX = "Bearer ";
 	private static final String TOKEN_ATRIBUTE = "Authorization";
 	
-	public TokenUtil() {
-		System.out.println("Entrou no construtor TokenUtil");
+	
+	public TokenService() {
+		System.out.println("Entrou no construtor TokenService");
 	}
+	
+	
 	
 	public String generateToken(User user) {
 
@@ -25,14 +28,16 @@ public class TokenUtil {
 
 	}
 
-	public boolean validateToken(String token, User user) {
-		String jwt = user.getEmail();
+	public String validateToken(String token) {
+		String jwt = "carlos@gmail.com";
 		
 		if (token.equals(jwt)) {
-			return true;
+			
+			System.out.println("Passou");
+			return token;
 		}
 
-		return false;
+		return "";
 	}
 
 	public String recoverToken(HttpServletRequest request) {

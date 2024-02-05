@@ -1,5 +1,6 @@
 package com.studies.gamelist.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,9 @@ import com.studies.gamelist.security.JwtFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurations {
+	
+	@Autowired
+	private JwtFilter jwtFilter;
 
 //	@Bean
 //	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -53,12 +57,13 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/lists").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/game").hasRole("DEFAULT")
+//						.requestMatchers("/h2-console").permitAll()
 						.anyRequest().authenticated();
 			}).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
 		
 
-		http.addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
