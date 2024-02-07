@@ -13,7 +13,6 @@ import com.studies.gamelist.api.dto.input.UserInputDTO;
 import com.studies.gamelist.api.dto.input.UserInputUpdateDTO;
 import com.studies.gamelist.domain.entities.GameList;
 import com.studies.gamelist.domain.entities.User;
-import com.studies.gamelist.domain.enums.UserRole;
 import com.studies.gamelist.domain.exception.BusinessException;
 import com.studies.gamelist.domain.repository.GameListRepository;
 import com.studies.gamelist.domain.repository.UserRepository;

@@ -24,7 +24,6 @@ public class AuthService {
 	private TokenService tokenService;
 
 	public LoginResponseDTO login(AuthenticationLoginDTO inputLogin) {
-		LoginResponseDTO loginResponse = new LoginResponseDTO();
 
 		User user = this.loadUserByEmail(inputLogin.getEmail());
 		
@@ -32,17 +31,12 @@ public class AuthService {
 
 		validatePassword(user, inputLogin.getPassword());
 
-		String token = tokenService.generateToken(user);
-
-		loginResponse.setToken(token);
-
-		return loginResponse;
+		return tokenService.generateToken(user);
 	}
 	
 	@Transactional
 	public User loadUserByEmail(String email) {
 
-//		Optional<User> result = userRepository.findByEmail(email);
 		Optional<User> result = userRepository.loadUserByEmail(email);
 
 		if (!result.isPresent()) {

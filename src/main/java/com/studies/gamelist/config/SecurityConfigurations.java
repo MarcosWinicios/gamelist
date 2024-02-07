@@ -52,8 +52,8 @@ public class SecurityConfigurations {
 
 		http.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests((authorize) -> {
-				authorize.requestMatchers(HttpMethod.POST, "/auth/login")
-						.permitAll().requestMatchers(HttpMethod.POST, "/user").permitAll()
+				authorize.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+						.requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/lists").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/game").hasRole("DEFAULT")

@@ -1,5 +1,7 @@
 package com.studies.gamelist.api.dto;
 
+import java.time.Instant;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,5 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LoginResponseDTO {
 	
-	String token; 
+	String token;
+	Instant expirationToken;
+	String userId;
 }
